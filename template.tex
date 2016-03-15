@@ -1,0 +1,54 @@
+\documentclass{msreport}
+
+\university{Technical University of Denmark}
+\institute{DTU Management Engineering}
+\division{Management Science}
+
+\institutetext{Department of Management Engineering}
+\instituteaddress{Produktionstorvet\\
+	Building 424\\
+	DK-2800 Kgs. Lyngby\\
+	Denmark}
+\phone{+45 45 25 48 00}
+\fax{+45 45 93 34 35}
+\webpage{www.man.dtu.dk}
+	
+\reportnumber{[Nr.]}
+% You can get the following numbers from Jesper Følsgaard but they are not needed:
+%\ISSNelectronic{[0000-0000]}             % The ISSN number for the electronic version
+%\ISBNelectronic{[000-00-0000-000-0]} % The ISBN number for the electronic version
+%\ISSNprinted{[0000-0000]}                 % The ISSN number for the printed version
+%\ISBNprinted{[000-00-0000-000-0]}     % The ISBN number for the printed version
+	
+\title{Title}
+\subtitle{Subtitle} % If you have a subtitle write it here otherwise comment it out
+\date{\today}
+\author{First author \and Second author \and etc.}
+\frontpicture{frontpageimage} % Ad a picture to the 
+\summary{Write summary here}
+
+\begin{document}
+	\maketitle
+	
+	\frontmatter
+	
+	\chapter*{Preface}
+		Write preface here
+	
+	\tableofcontents
+	
+	\mainmatter
+	\insertsummary
+	
+	\chapter{A Chapter}
+	Write introduction here and cite like \cite{Simpson2016}
+	
+	\bibliographystyle{apalike}
+	\bibliography{template}
+	
+	\appendix
+	\chapter{An Appendix}
+	
+	\chapter*{Acknowledgement}
+	
+\end{document}

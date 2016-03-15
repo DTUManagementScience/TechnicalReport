@@ -1,0 +1,265 @@
+\NeedsTeXFormat{LaTeX2e}%
+\ProvidesClass{msreport}[2016/03/15 DTU Management Science Technical Report Class]%
+%
+\LoadClassWithOptions{memoir}%
+%
+\RequirePackage{graphicx}%
+\RequirePackage{color}%
+\RequirePackage{anyfontsize}%
+\RequirePackage{tcolorbox}%
+\RequirePackage[a4paper, total={6.5in, 9in}]{geometry}%
+\RequirePackage[hidelinks]{hyperref}%
+%
+\definecolor{dtured}{RGB}{153,0,0}%
+\definecolor{dtumorered}{RGB}{192,0,0}%
+\definecolor{dtugray}{RGB}{153,153,153}%
+\definecolor{dtulightgray}{RGB}{217,217,217}%
+\definecolor{dtublue}{RGB}{23,54,93}%
+\definecolor{dtulightblue}{RGB}{51,102,204}%
+%
+\def\clearrevdoublepage{\clearpage\if@twoside \ifodd\hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\else\c@page\fi\fi}
+%
+\def\@issnelectronic{\@empty}%
+\def\@isbnelectronic{\@empty}%
+\def\@issnprinted{\@empty}%
+\def\@isbnprinted{\@empty}%
+%
+\newcommand{\ISSNelectronic}[1]{\gdef\@issnelectronic{#1}}%
+\newcommand{\ISBNelectronic}[1]{\gdef\@isbnelectronic{#1}}%
+\newcommand{\ISSNprinted}[1]{\gdef\@issnprinted{#1}}%
+\newcommand{\ISBNprinted}[1]{\gdef\@isbnprinted{#1}}%
+%
+\def\@subtitle{\@empty}%
+\newcommand{\subtitle}[1]{\gdef\@subtitle{#1}}%
+%
+\def\@frontpicture{\@empty}%
+\newcommand{\frontpicture}[1]{\gdef\@frontpicture{#1}}%
+%
+\def\@summary{\@empty}%
+\newcommand{\summary}[1]{\gdef\@summary{#1}}%
+\newcommand{\insertsummary}{%
+	\chapter*{Summary}%
+	\@summary%
+	\cleardoublepage%
+}
+%
+\def\@phone{\@empty}%
+\newcommand{\phone}[1]{\gdef\@phone{#1}}%
+%
+\def\@fax{\@empty}%
+\newcommand{\fax}[1]{\gdef\@fax{#1}}%
+%
+\def\@reportnr{\@empty}%
+\newcommand{\reportnumber}[1]{\gdef\@reportnr{#1}}%
+%
+\def\@institute{\@empty}%
+\newcommand{\institute}[1]{\gdef\@institute{#1}}%
+%
+\def\@division{\@empty}%
+\newcommand{\division}[1]{\gdef\@division{#1}}%
+%
+\def\@university{\@empty}%
+\newcommand{\university}[1]{\gdef\@university{#1}}%
+%
+\def\@instituteaddress{\@empty}%
+%
+\def\@institutebackaddress{\@empty}%
+\newcommand{\instituteaddress}[1]{%
+	\gdef\@institutebackaddress{#1}
+	\gdef\@instituteaddress{\@replacebackslashes#1\@nil}}%
+%
+\def\@institutetext{\@empty}%
+\newcommand{\institutetext}[1]{\gdef\@institutetext{#1}}%
+%
+\def\@webpage{\@empty}%
+\newcommand{\webpage}[1]{\gdef\@webpage{#1}}%
+%
+\def\and{\\}%
+%
+\AtEndDocument{%
+	\if@openright%
+	\cleardoublepage%
+	\else%
+	\clearpage%
+	\fi%
+	\thispagestyle{empty}%
+	\if@twocolumn%
+	\onecolumn%
+	\@tempswatrue%
+	\else%
+	\@tempswafalse%
+	\fi%
+	\null\vfil%
+	\markboth{}{}%
+	\hbox{}\clearpage%
+	\newgeometry{left=0.6cm,top=1.68cm,bottom=2.8cm,right=1.6cm}%
+	\thispagestyle{empty}%
+	\@summary\\\vfill%
+	\begin{tcolorbox}[height=0.73\textheight,sharp corners,left=2mm,right=0mm,top=20mm,bottom=0mm,colback=dtulightblue,valign=bottom,colframe=dtumorered,toprule=2mm,bottomrule=0mm,leftrule=0mm,rightrule=0mm]%
+		\fontfamily{phv}\selectfont%
+		\textcolor{white}{\@institute\\%
+			\@institutetext\\%
+			\@university\\[12pt]%
+			\@institutebackaddress\\[12pt]%
+			\begin{tabular}{@{}ll}%
+				Phone: & \@phone\\%
+				Fax: & \@fax%
+			\end{tabular}\\[12pt]%
+			\href{\@webpage}{\@webpage}\\[24pt]}%
+	\end{tcolorbox}%
+}
+%
+\newif\if@ms@electronics@%
+\@ms@electronics@false%
+\newif\if@ms@printed@%
+\@ms@printed@false%
+%
+\def\@maketitle{%
+	\if\@issnelectronic\@empty\relax\else\@ms@electronics@true\fi%
+	\if\@isbnelectronic\@empty\relax\else\@ms@electronics@true\fi%
+	\if\@issnprinted\@empty\relax\else\@ms@printed@true\fi%
+	\if\@isbnprinted\@empty\relax\else\@ms@printed@true\fi%
+	\begin{titlingpage}%
+		\fontfamily{phv}\selectfont%
+		\newgeometry{left=2cm,top=1.68cm,bottom=3cm,right=1cm}%
+		\hfill\includegraphics{dtu_logo}%
+		\begin{flushleft}%
+			{\fontsize{24pt}{36pt}\fontfamily{phv}\selectfont\textbf{\@title}\\[48pt]}%
+			\colorbox{dtulightgray}{\parbox[t][9.63cm][c]{0.5\textwidth}{%
+					\if\@frontpicture\@empty\relax\else%
+					\begin{center}%
+						\includegraphics[width=0.5\textwidth]{\@frontpicture}%
+					\end{center}%
+					\fi%
+				}}\hspace*{-0.15cm}%
+				\colorbox{dtublue}{\parbox[t][9.63cm][c]{0.49\textwidth}{%
+						\textcolor{white}{\fontsize{22pt}{34pt}\fontfamily{phv}\selectfont%
+							\hspace*{12pt}\@division\\[36pt]%
+							\fontsize{16pt}{22pt}\fontfamily{phv}\selectfont%
+							\hspace*{12pt}\@institute}}}\\%
+				\vspace*{26pt}%
+				\@author\\%
+				\vspace*{12pt}%
+				\@date\\\vfill%
+				\includegraphics{dtu_management_logo}%
+			\end{flushleft}%
+			\if@twoside\cleardoublepage\else\clearpage\fi%
+			\thispagestyle{empty}%
+			\hfill\includegraphics{dtu_logo}\\%
+			\vspace*{60pt}%
+			\begin{flushleft}
+				\fontfamily{phv}\selectfont%
+				\textbf{\huge{\@title}}\\\vspace{12pt}%
+				\if\@subtitle\@empty\relax\else%
+				{\color{dtugray}\textbf{\large{\@subtitle}}}\\%
+				\fi%
+				\vfill
+				\@author\\%
+				\vspace*{12pt}%
+				\@date\\\vfill%
+				\includegraphics{dtu_management_logo}%
+			\end{flushleft}
+			\clearpage
+			\newgeometry{left=2cm,top=3.69cm,bottom=3cm,right=1cm}%
+			\thispagestyle{empty}%
+			\vspace*{12pt}\vfill%
+			\begin{tabular}{@{}p{3.2cm}p{4cm}p{10cm}}%
+				\multicolumn{3}{@{}p{17.2cm}}{\textbf{\@title}}\\%
+				\if\@subtitle\@empty\relax\else%
+				\multicolumn{3}{@{}p{17.2cm}}{\@subtitle}\\%
+				\fi%
+				\\%
+				Report: &  \multicolumn{2}{p{14cm}}{\@reportnr}\\\\%
+				By: &  \multicolumn{2}{p{14cm}}{%
+					\begin{tabular}[t]{@{}l}%
+						\@author%
+					\end{tabular}}\\\\%
+					Copyright: & \multicolumn{2}{p{14cm}}{Reproduction of this publication in whole or in part must include the customary bibliographic citation, including author attribution, report title, etc.}\\\\%
+					Published by: & \multicolumn{2}{p{14cm}}{\@institutetext, \@instituteaddress}\\\\%
+					Request report from: &  \multicolumn{2}{p{14cm}}{\href{\@webpage}{\@webpage}}\\\\%
+					\if\@issnelectronic\@empty\relax\else%
+					ISSN: & \@issnelectronic & (electronic version)\\%
+					\fi%
+					\if\@isbnelectronic\@empty\relax\else%
+					ISBN: & \@isbnelectronic & (electronic version)\\
+					\fi%
+					\if@ms@electronics@\if@ms@printed@\\\fi\fi%
+					\if\@issnprinted\@empty\relax\else%
+					ISSN: & \@issnprinted & (printed version)\\%
+					\fi%
+					\if\@isbnprinted\@empty\relax\else%
+					ISBN: & \@isbnprinted & (printed version)%
+					\fi%
+				\end{tabular}%
+				\begin{flushright}%
+					\copyright\ \the\year%
+				\end{flushright}%
+			\end{titlingpage}%
+}
+%
+\makechapterstyle{custommschapterstyle}{%
+	\setlength{\afterchapskip}{40pt}%
+	\renewcommand*{\chapterheadstart}{\vspace*{40pt}}%
+	\renewcommand*{\afterchapternum}{\hspace*{20pt}}%
+	\renewcommand*{\chapnamefont}{\normalfont\Large}%
+	\renewcommand*{\chapnumfont}{\color{dtulightblue}\normalfont\huge\bfseries}%
+	\renewcommand*{\chaptitlefont}{\color{dtulightblue}\normalfont\huge\bfseries}%
+	\renewcommand*{\abstractnamefont}{\color{dtulightblue}\normalfont\small\bfseries}
+	\renewcommand*{\printchaptername}{\ifanappendix\chaptitlefont\appendixname\ \fi}%
+	\renewcommand*{\chapternamenum}{}%
+	\renewcommand*{\printchapternum}{\chapnumfont\thechapter\ifanappendix\else.\fi}%
+	\renewcommand*{\appendixname}{Appendix}%
+	\makeoddfoot{plain}{}{}{}
+}
+\let\old@tableofcontents\tableofcontents%
+\def\tableofcontents{\if@twoside\cleardoublepage\else\clearpage\fi\old@tableofcontents}%
+%
+\chapterstyle{custommschapterstyle}%
+%
+	\let\@oddhead\@empty%
+	\let\@evenhead\@empty%
+	\def\@oddfoot{\reset@font\hfil\@title\ $\vert$\thepage}%
+	\def\@evenfoot{\reset@font\thepage $\vert$ \@title\hfil}%
+\setcounter{secnumdepth}{3}%
+\setcounter{tocdepth}{2}%
+%
+\renewcommand{\frontmatter}{%
+	\pagenumbering{roman}%
+	\setcounter{page}{1}%
+}
+%
+\renewcommand{\mainmatter}{%
+	\pagenumbering{arabic}%
+	\setcounter{page}{1}%
+}%
+\renewcommand{\bibname}{References}%
+%
+\def\@replacebackslashes#1\@nil{%
+	\if\relax\detokenize{#1}\relax
+	\expandafter\@gobble%
+	\else
+	\expandafter\@firstofone%
+	\fi
+	{\@repl@cebackslashes#1\\\@nil}%
+}
+\def\@repl@cebackslashes#1\\#2\@nil{%
+	#1%
+	\if\relax\detokenize{#2}\relax%
+	\expandafter\@firstoftwo%
+	\else%
+	,\expandafter\@secondoftwo%
+	\fi%
+	{\unskip}%
+	{\@repl@cebacksl@shes#2\@nil}%
+}
+\def\@repl@cebacksl@shes#1\\#2\@nil{%
+	#1%
+	\if\relax\detokenize{#2}\relax%
+	\expandafter\@firstoftwo%
+	\else%
+	,\expandafter\@secondoftwo%
+	\fi%
+	{\unskip}%
+	{\@repl@cebacksl@shes#2\@nil}%
+}
+%
