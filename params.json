@@ -1,7 +1,7 @@
 {
   "name": "Technical Report Template for DTU Management Science",
   "tagline": "The LaTeX template for writing technical reports at DTU Management Science",
-  "body": "### Technical Report Template.\r\nThis is a LaTeX template for writing technical report at DTU Management Science.\r\n\r\n### Support\r\nHaving trouble with the template?\r\n",
+  "body": "### Technical Report Template.\r\nThis is a LaTeX template for writing technical report at DTU Management Science.\r\n\r\n### Support\r\nHaving trouble with the template?\r\nGo to the project on github an report a new issue.\r\n",
   "google": "",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
